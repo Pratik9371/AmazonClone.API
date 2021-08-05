@@ -31,9 +31,6 @@ namespace AmazonClone.DbContexts.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
-
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 

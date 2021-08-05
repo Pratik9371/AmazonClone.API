@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmazonClone.DbContexts.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210805155731_TotalColumnRemovedInCart")]
+    [Migration("20210805160535_TotalColumnRemovedInCart")]
     partial class TotalColumnRemovedInCart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,6 @@ namespace AmazonClone.DbContexts.Data.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");

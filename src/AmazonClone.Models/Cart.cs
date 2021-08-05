@@ -12,8 +12,6 @@ namespace AmazonClone.Models
 
         public int Quantity { get; set; }
 
-        public double Total { get; set; }
-
         public int UserID { get; set; }
         public User User { get; set; }
 
