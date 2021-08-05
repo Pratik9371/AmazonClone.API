@@ -18,10 +18,6 @@ namespace AmazonClone.API.Controllers
         {
             _applicationDbContext = applicationDbContext;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [HttpPost]
         [Route("createuser")]
@@ -36,7 +32,7 @@ namespace AmazonClone.API.Controllers
 
         [HttpGet]
         [Route("getuser")]
-        public async Task<User> Get(long Id)
+        public async Task<User> Get(int Id)
         {
            return await _applicationDbContext.users.FirstOrDefaultAsync(u => u.ID == Id);
         }

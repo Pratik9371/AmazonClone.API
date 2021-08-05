@@ -11,28 +11,28 @@ namespace AmazonClone.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : Controller
+    public class CartController : Controller
     {
         ApplicationDbContext _applicationDbContext;
 
-        public ProductsController(ApplicationDbContext applicationDbContext)
+        public CartController(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
+        }   
+
+        [HttpPost]
+        [Route("add")]
+        public async Task Add(Cart entity)
+        {
+            await _applicationDbContext.cart.AddAsync(entity);
+            await _applicationDbContext.SaveChangesAsync();
         }
 
         [HttpGet]
         [Route("get")]
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<Cart> Get(int userId)
         {
-            return await _applicationDbContext.products.ToListAsync();
-        }
-
-        [HttpPost]
-        [Route("add")]
-        public async Task AddProduct(Product entity)
-        {
-            await _applicationDbContext.products.AddAsync(entity);
-            await _applicationDbContext.SaveChangesAsync();
+            return await _applicationDbContext.cart.Where(c=>c.UserID == userId).Include(c=>c.Product).FirstOrDefaultAsync();
         }
     }
 }

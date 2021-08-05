@@ -8,7 +8,8 @@ namespace AmazonClone.Models
 {
     public class Product
     {
-        public Int64 ID { get; set; }
+        [Key]
+        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
         public string Info { get; set; }
@@ -16,7 +17,7 @@ namespace AmazonClone.Models
         [Required]
         public double Price { get; set; }
         [Required]
-        public Int64 Rating { get; set; }
+        public int Rating { get; set; }
         [Required]
         public string ImageUrl { get; set; }
     }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmazonClone.DbContexts.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210803143259_ChangedTypeOfPrice")]
-    partial class ChangedTypeOfPrice
+    [Migration("20210804153624_UserProductCartTableAdded")]
+    partial class UserProductCartTableAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,11 +20,36 @@ namespace AmazonClone.DbContexts.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AmazonClone.Models.Cart", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("cart");
+                });
+
             modelBuilder.Entity("AmazonClone.Models.Product", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImageUrl")
@@ -41,8 +66,8 @@ namespace AmazonClone.DbContexts.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<long>("Rating")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -51,9 +76,9 @@ namespace AmazonClone.DbContexts.Data.Migrations
 
             modelBuilder.Entity("AmazonClone.Models.User", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
@@ -68,6 +93,25 @@ namespace AmazonClone.DbContexts.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("users");
+                });
+
+            modelBuilder.Entity("AmazonClone.Models.Cart", b =>
+                {
+                    b.HasOne("AmazonClone.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AmazonClone.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,5 +13,6 @@ namespace AmazonClone.DbContexts
 
         public DbSet<User> users { get; set; }
         public DbSet<Product> products { get; set; }
+        public DbSet<Cart> cart { get; set; }
     }
 }
