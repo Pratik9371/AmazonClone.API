@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AmazonClone.DbContexts;
 using AmazonClone.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,9 +43,9 @@ namespace AmazonClone.API.Controllers
         [Route("login")]
         public async Task<User> login(User entity)
         {
-          var user = await _applicationDbContext.users.Where(u => u.Email == entity.Email && u.Password == entity.Password).FirstOrDefaultAsync();
-
-          return user;
+         
+            var user = await _applicationDbContext.users.Where(u => u.Email == entity.Email && u.Password == entity.Password).FirstOrDefaultAsync();
+            return user;
         }
     }
 }

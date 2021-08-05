@@ -30,9 +30,29 @@ namespace AmazonClone.API.Controllers
 
         [HttpGet]
         [Route("get")]
-        public async Task<Cart> Get(int userId)
+        public async Task<List<Cart>> Get(int userId)
         {
-            return await _applicationDbContext.cart.Where(c=>c.UserID == userId).Include(c=>c.Product).FirstOrDefaultAsync();
+            return await _applicationDbContext.cart.Where(c => c.UserID == userId).Include(c => c.Product).ToListAsync();
+        }
+
+        [HttpDelete]
+        [Route("remove")]
+        public async Task Remove(int id)
+        {
+            var dbEntity = await _applicationDbContext.cart.FirstOrDefaultAsync(c => c.ID == id);
+            _applicationDbContext.cart.Remove(dbEntity);
+            await _applicationDbContext.SaveChangesAsync();
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task Update(Cart entity)
+        {
+            var dbEntity = await _applicationDbContext.cart.FirstOrDefaultAsync(c => c.ID == entity.ID);
+
+            dbEntity.Quantity = entity.Quantity;
+
+            await _applicationDbContext.SaveChangesAsync();
         }
     }
 }
