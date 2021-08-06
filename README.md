@@ -8,6 +8,9 @@ dotnet ef database update TotalColumnAddedInCart --context ApplicationDbContext
 dotnet ef migrations add TotalColumnRemovedInCart --context ApplicationDbContext -o Data/Migrations --project ..\AmazonClone.DbContexts
 dotnet ef database update TotalColumnRemovedInCart --context ApplicationDbContext
 
+dotnet ef migrations add ProductDetailsTableAdded --context ApplicationDbContext -o Data/Migrations --project ..\AmazonClone.DbContexts
+dotnet ef database update ProductDetailsTableAdded --context ApplicationDbContext
+
 
 
 

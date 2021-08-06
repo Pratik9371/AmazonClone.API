@@ -12,7 +12,7 @@ namespace AmazonClone.Models
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Info { get; set; }
+        public List<ProductDetails> ProductDetails { get; set; }
 
         [Required]
         public double Price { get; set; }
