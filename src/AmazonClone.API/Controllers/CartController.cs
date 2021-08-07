@@ -54,5 +54,15 @@ namespace AmazonClone.API.Controllers
 
             await _applicationDbContext.SaveChangesAsync();
         }
+
+        //remove the cart by userid
+        [HttpDelete]
+        [Route("delete")]
+        public async Task Delete(int id)
+        {
+            var result = await _applicationDbContext.cart.Where(c => c.UserID == id).ToListAsync();
+            _applicationDbContext.RemoveRange(result);
+            await _applicationDbContext.SaveChangesAsync();
+        }
     }
 }
